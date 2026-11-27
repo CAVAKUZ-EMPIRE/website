@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { COLORS } from '../constants/color'
 import './App.css'
+import work1 from '/images/our-work/work1.webp'
+import work2 from '/images/our-work/work2.webp'
+import work3 from '/images/our-work/work3.webp'
 
 const projects = [
   {
     number: '01',
     category: 'Brand identity · Print',
     name: 'Good things grow here.',
-    image:
-      'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=1200&q=85',
+    image: work1,
     alt: 'A thoughtfully arranged collection of printed notebooks and stationery',
     className: 'project-card--stationery',
   },
@@ -16,8 +18,7 @@ const projects = [
     number: '02',
     category: 'Packaging · Art direction',
     name: 'A little more flavour.',
-    image:
-      'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=1200&q=85',
+    image: work2,
     alt: 'Colorful beverage packaging arranged as a product campaign',
     className: 'project-card--packaging',
   },
@@ -25,8 +26,7 @@ const projects = [
     number: '03',
     category: 'Campaign · Large format',
     name: 'Out there. Everywhere.',
-    image:
-      'https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=1200&q=85',
+    image: work3,
     alt: 'Colorful graphic design and printed campaign artwork',
     className: 'project-card--campaign',
   },
@@ -307,16 +307,48 @@ function App() {
         <section className="contact-section" id="contact" aria-labelledby="contact-title">
           <div className="contact-orbit contact-orbit--one" aria-hidden="true" />
           <div className="contact-orbit contact-orbit--two" aria-hidden="true" />
-          <p className="eyebrow"><span className="eyebrow-dot" /> Your next big thing starts here</p>
-          <h2 id="contact-title">Let’s make<br />some <span>noise.</span></h2>
-          <a className="contact-button" href="mailto:hello@cavakuz.com">Tell us what you’re thinking <ArrowIcon diagonal /></a>
-          <p className="contact-note">Big idea, tiny question, or just saying hi — our inbox is open.</p>
+          <div className="contact-content">
+            <div className="contact-copy">
+              <p className="eyebrow"><span className="eyebrow-dot" /> Your next big thing starts here</p>
+              <h2 id="contact-title">Let’s make<br />some <span>noise.</span></h2>
+              <p className="contact-description">Have a project in mind? Tell us what you’re imagining and let’s make something people remember.</p>
+              <a className="contact-email" href="mailto:cavakuzempire@gmail.com">cavakuzempire@gmail.com <ArrowIcon diagonal /></a>
+              <a className="contact-email contact-phone" href="tel:+233206435353">Call +233 20 643 5353 <ArrowIcon diagonal /></a>
+            </div>
+            <form
+              className="contact-form"
+              action="mailto:cavakuzempire@gmail.com?subject=Cavakuz%20website%20enquiry"
+              method="post"
+              encType="text/plain"
+            >
+              <div className="contact-form-heading">
+                <span>01 — YOUR PROJECT</span>
+                <h3>Tell us a little about it.</h3>
+              </div>
+              <div className="contact-fields">
+                <label>
+                  Your name
+                  <input autoComplete="name" name="name" placeholder="Name" required />
+                </label>
+                <label>
+                  Email address
+                  <input autoComplete="email" name="email" placeholder="you@example.com" required type="email" />
+                </label>
+                <label className="contact-message-field">
+                  What can we help with?
+                  <textarea name="message" placeholder="Tell us a bit about your idea..." required rows={4} />
+                </label>
+              </div>
+              <button className="contact-button" type="submit">Send your enquiry <ArrowIcon diagonal /></button>
+              <p className="contact-form-note">Your email app will open to send your message.</p>
+            </form>
+          </div>
         </section>
       </main>
 
       <footer className="site-footer">
         <div className="footer-top"><BrandMark /><span>Good work. Good people. Good energy.</span><a href="#top">Back to top ↑</a></div>
-        <div className="footer-bottom"><span>© {new Date().getFullYear()} Cavakuz Studio. Made with intention.</span><span>Creative studio & print house · Obuasi, Gausu</span><a href="mailto:hello@cavakuz.com">hello@cavakuz.com</a></div>
+        <div className="footer-bottom"><span>© {new Date().getFullYear()} Cavakuz Empire. Made with intention.</span><span>Creative studio & print house · Obuasi, Gausu</span><a href="mailto:hello@cavakuz.com">hello@cavakuz.com</a></div>
       </footer>
     </div>
   )
