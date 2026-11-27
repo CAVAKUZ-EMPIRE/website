@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { COLORS } from '../constants/color'
 import './App.css'
 
@@ -38,37 +38,54 @@ const services = [
     title: 'Custom Apparel & Textile Branding',
     description: 'T-shirts, polos, caps, uniforms and event shirts, personalised or branded for your team.',
     icon: '◉',
+    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'A crisp white T-shirt ready for custom printing',
   },
   {
     number: '02',
     title: 'Engraving & Personalisation',
     description: 'Engraved gifts, customised merchandise and personal touches made to last.',
     icon: '✧',
+    image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'A collection of carefully arranged design objects and gifts',
   },
   {
     number: '03',
     title: 'Commercial & Digital Printing',
     description: 'Flyers, posters, brochures, stickers, business cards, invitations and more.',
     icon: '▤',
+    image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'Printed notebooks and stationery arranged on a desk',
   },
   {
     number: '04',
     title: 'Packaging & Bag Branding',
     description: 'Custom paper, polythene and rubber bags, pouches, gift bags and packaging.',
     icon: '▱',
+    image: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'Colorful product packaging arranged for a brand display',
   },
   {
     number: '05',
     title: 'Corporate & Promotional Branding',
     description: 'Office, shop and vehicle branding, promotional materials and corporate merchandise.',
     icon: '↗',
+    image: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'Bright printed campaign graphics displayed together',
   },
   {
     number: '06',
     title: 'Custom Merchandise & Gifts',
     description: 'Branded mugs, notebooks, folders, corporate gifts and customised accessories.',
     icon: '✳',
+    image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=700&q=80',
+    imageAlt: 'Gift boxes wrapped and ready to be personalised',
   },
+]
+
+const teamMembers = [
+  { number: '01', name: 'Emmanuel Amoafo', role: 'CEO', monogram: 'EA' },
+  { number: '02', name: 'Abigail Opuku', monogram: 'AO' },
 ]
 
 function ArrowIcon({ diagonal = false }: { diagonal?: boolean }) {
@@ -94,6 +111,31 @@ function BrandMark() {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const serviceListRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const serviceList = serviceListRef.current
+    if (!serviceList) return
+
+    const items = serviceList.querySelectorAll<HTMLElement>('.service-item')
+    if (!('IntersectionObserver' in window)) {
+      items.forEach((item) => item.classList.add('is-visible'))
+      return
+    }
+
+    serviceList.classList.add('service-list--animated')
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible')
+          observer.unobserve(entry.target)
+        }
+      })
+    }, { threshold: 0.15 })
+
+    items.forEach((item) => observer.observe(item))
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <div
@@ -122,6 +164,7 @@ function App() {
           <a href="#work" onClick={() => setMenuOpen(false)}>Our work</a>
           <a href="#services" onClick={() => setMenuOpen(false)}>What we do</a>
           <a href="#about" onClick={() => setMenuOpen(false)}>About us</a>
+          <a href="#team" onClick={() => setMenuOpen(false)}>Our team</a>
           <a className="nav-contact" href="#contact" onClick={() => setMenuOpen(false)}>
             Start a project <ArrowIcon diagonal />
           </a>
@@ -192,17 +235,29 @@ function App() {
 
         <section className="services-section section-pad" id="services" aria-labelledby="services-title">
           <div className="services-heading">
-            <p className="eyebrow"><span className="eyebrow-dot" /> What we bring to the table</p>
-            <h2 id="services-title">One good idea.<br /><span>Everywhere it needs to be.</span></h2>
+            <div className="services-heading-copy">
+              <p className="eyebrow"><span className="eyebrow-dot" /> What we bring to the table</p>
+              <h2 id="services-title">One good idea.<br /><span>Everywhere it needs to be.</span></h2>
+            </div>
             <p>From the first spark to the final delivery, we make brands look and feel like themselves — only louder.</p>
           </div>
-          <div className="service-list">
+          <div className="service-list" ref={serviceListRef}>
             {services.map((service) => (
-              <a className="service-item" href="#contact" key={service.number}>
-                <span className="service-number">{service.number}</span>
-                <span className="service-icon" aria-hidden="true">{service.icon}</span>
-                <span className="service-copy"><strong>{service.title}</strong><span>{service.description}</span></span>
-                <span className="service-arrow"><ArrowIcon diagonal /></span>
+              <a
+                className="service-item"
+                href="#contact"
+                key={service.number}
+                style={{ '--service-order': Number(service.number) - 1 } as CSSProperties}
+              >
+                <span className="service-image">
+                  <img src={service.image} alt={service.imageAlt} loading="lazy" />
+                  <span className="service-number">{service.number} <span>/ 06</span></span>
+                  <span className="service-image-icon" aria-hidden="true">{service.icon}</span>
+                </span>
+                <span className="service-card-copy">
+                  <span className="service-copy"><strong>{service.title}</strong><span>{service.description}</span></span>
+                  <span className="service-arrow"><ArrowIcon diagonal /></span>
+                </span>
               </a>
             ))}
           </div>
@@ -221,6 +276,34 @@ function App() {
           </div>
         </section>
 
+        <section className="team-section section-pad" id="team" aria-labelledby="team-title">
+          <div className="team-heading">
+            <div>
+              <p className="eyebrow"><span className="eyebrow-dot" /> The people behind the work</p>
+              <h2 id="team-title">Meet the <span>team.</span></h2>
+            </div>
+            <p>Good ideas start with good people. Get to know the team bringing Cavakuz to life.</p>
+          </div>
+          <div className="team-grid">
+            {teamMembers.map((member, index) => (
+              <article className={`team-card team-card--${index === 0 ? 'emmanuel' : 'abigail'}`} key={member.name}>
+                <div className="team-card-art" aria-hidden="true">
+                  <span className="team-card-index">{member.number} / THE TEAM</span>
+                  <span className="team-card-monogram">{member.monogram}</span>
+                  <span className="team-card-stamp">CAVAKUZ<br />EMPIRE</span>
+                </div>
+                <div className="team-card-info">
+                  <div>
+                    <h3>{member.name}</h3>
+                    {member.role && <p>{member.role}</p>}
+                  </div>
+                  <span className="team-card-arrow" aria-hidden="true"><ArrowIcon diagonal /></span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section className="contact-section" id="contact" aria-labelledby="contact-title">
           <div className="contact-orbit contact-orbit--one" aria-hidden="true" />
           <div className="contact-orbit contact-orbit--two" aria-hidden="true" />
@@ -233,7 +316,7 @@ function App() {
 
       <footer className="site-footer">
         <div className="footer-top"><BrandMark /><span>Good work. Good people. Good energy.</span><a href="#top">Back to top ↑</a></div>
-        <div className="footer-bottom"><span>© {new Date().getFullYear()} Cavakuz Studio. Made with intention.</span><span>Creative studio & print house · Working everywhere</span><a href="mailto:hello@cavakuz.com">hello@cavakuz.com</a></div>
+        <div className="footer-bottom"><span>© {new Date().getFullYear()} Cavakuz Studio. Made with intention.</span><span>Creative studio & print house · Obuasi, Gausu</span><a href="mailto:hello@cavakuz.com">hello@cavakuz.com</a></div>
       </footer>
     </div>
   )
