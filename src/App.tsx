@@ -1,0 +1,242 @@
+import { useState, type CSSProperties } from 'react'
+import { COLORS } from '../constants/color'
+import './App.css'
+
+const projects = [
+  {
+    number: '01',
+    category: 'Brand identity · Print',
+    name: 'Good things grow here.',
+    image:
+      'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=1200&q=85',
+    alt: 'A thoughtfully arranged collection of printed notebooks and stationery',
+    className: 'project-card--stationery',
+  },
+  {
+    number: '02',
+    category: 'Packaging · Art direction',
+    name: 'A little more flavour.',
+    image:
+      'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=1200&q=85',
+    alt: 'Colorful beverage packaging arranged as a product campaign',
+    className: 'project-card--packaging',
+  },
+  {
+    number: '03',
+    category: 'Campaign · Large format',
+    name: 'Out there. Everywhere.',
+    image:
+      'https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=1200&q=85',
+    alt: 'Colorful graphic design and printed campaign artwork',
+    className: 'project-card--campaign',
+  },
+]
+
+const services = [
+  {
+    number: '01',
+    title: 'Custom Apparel & Textile Branding',
+    description: 'T-shirts, polos, caps, uniforms and event shirts, personalised or branded for your team.',
+    icon: '◉',
+  },
+  {
+    number: '02',
+    title: 'Engraving & Personalisation',
+    description: 'Engraved gifts, customised merchandise and personal touches made to last.',
+    icon: '✧',
+  },
+  {
+    number: '03',
+    title: 'Commercial & Digital Printing',
+    description: 'Flyers, posters, brochures, stickers, business cards, invitations and more.',
+    icon: '▤',
+  },
+  {
+    number: '04',
+    title: 'Packaging & Bag Branding',
+    description: 'Custom paper, polythene and rubber bags, pouches, gift bags and packaging.',
+    icon: '▱',
+  },
+  {
+    number: '05',
+    title: 'Corporate & Promotional Branding',
+    description: 'Office, shop and vehicle branding, promotional materials and corporate merchandise.',
+    icon: '↗',
+  },
+  {
+    number: '06',
+    title: 'Custom Merchandise & Gifts',
+    description: 'Branded mugs, notebooks, folders, corporate gifts and customised accessories.',
+    icon: '✳',
+  },
+]
+
+function ArrowIcon({ diagonal = false }: { diagonal?: boolean }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={diagonal ? 'arrow-icon arrow-icon--diagonal' : 'arrow-icon'}
+      viewBox="0 0 20 20"
+      fill="none"
+    >
+      <path d="M3.5 10h12m-5-5 5 5-5 5" stroke="currentColor" strokeWidth="1.7" />
+    </svg>
+  )
+}
+
+function BrandMark() {
+  return (
+    <a className="brand" href="#top" aria-label="Cavakuz Studio home">
+      <img className="brand-logo" src="/images/logo/cavakuz-log-black.png" alt="" />
+    </a>
+  )
+}
+
+function App() {
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  return (
+    <div
+      className="site-shell"
+      id="top"
+      style={{ '--blue': COLORS.primary, '--coral': COLORS.secondary } as CSSProperties}
+    >
+      <div className="announcement-bar">
+        <span>Good ideas deserve to be seen.</span>
+        <a href="#contact">Let’s make something great <ArrowIcon diagonal /></a>
+      </div>
+
+      <header className="site-header">
+        <BrandMark />
+        <button
+          className={`menu-toggle${menuOpen ? ' is-open' : ''}`}
+          type="button"
+          aria-expanded={menuOpen}
+          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <span />
+          <span />
+        </button>
+        <nav className={menuOpen ? 'main-nav is-open' : 'main-nav'} aria-label="Main navigation">
+          <a href="#work" onClick={() => setMenuOpen(false)}>Our work</a>
+          <a href="#services" onClick={() => setMenuOpen(false)}>What we do</a>
+          <a href="#about" onClick={() => setMenuOpen(false)}>About us</a>
+          <a className="nav-contact" href="#contact" onClick={() => setMenuOpen(false)}>
+            Start a project <ArrowIcon diagonal />
+          </a>
+        </nav>
+      </header>
+
+      <main>
+        <section className="hero" aria-labelledby="hero-title">
+          <div className="hero-copy">
+            <p className="eyebrow hero-eyebrow"><span className="eyebrow-dot" /> Good ideas. Made with intention.</p>
+            <h1 id="hero-title">Your Potentials<br />are unlimited<span className="hero-period">.</span></h1>
+            <div className="hero-bottomline">
+              <p>We turn bright ideas into bold brands, beautiful print and things you can’t help but notice.</p>
+              <a className="round-link" href="#work" aria-label="Explore our work"><ArrowIcon /></a>
+            </div>
+            <div className="hero-caption"><span>Creative studio & print house</span><span>Working everywhere</span></div>
+          </div>
+
+          <div className="hero-art" aria-label="A colorful arrangement of print and creative materials">
+            <div className="hero-art-frame">
+              <img
+                className="hero-photo"
+                src="https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=1200&q=85"
+                alt="Vibrant abstract artwork in warm, expressive colors"
+                fetchPriority="high"
+              />
+              <div className="hero-art-wash" />
+              <div className="hero-art-label"><span>GOOD<br />IDEAS</span><span>GET<br />MADE.</span></div>
+              <div className="hero-sticker"><span>DESIGN<br />PRINT<br />REPEAT</span><span className="sticker-star">✳</span></div>
+              <span className="hero-art-index">KZ—001 / 2026</span>
+            </div>
+            <div className="hero-side-note">MADE WITH<br />INTENTION <span>↘</span></div>
+            <div className="hero-orbit" aria-hidden="true"><span /></div>
+          </div>
+          <a className="scroll-cue" href="#work"><span /> Scroll to explore</a>
+        </section>
+
+        <section className="work-section section-pad" id="work" aria-labelledby="work-title">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow"><span className="eyebrow-dot" /> A few ways we make ideas real</p>
+              <h2 id="work-title">Made to <span>make</span><br />an impression.</h2>
+            </div>
+            <p className="section-intro">Thoughtful stationery, packaging that pops and graphics that get noticed — this is the kind of energy we bring to a brief.</p>
+          </div>
+          <div className="project-grid">
+            {projects.map((project) => (
+              <a className={`project-card ${project.className}`} href="#contact" key={project.number}>
+                <div className="project-image-wrap">
+                  <img src={project.image} alt={project.alt} loading="lazy" />
+                  <span className="project-number">{project.number} / 03</span>
+                  <span className="project-arrow"><ArrowIcon diagonal /></span>
+                </div>
+                <div className="project-meta"><span>{project.category}</span><span>{project.name}</span></div>
+              </a>
+            ))}
+          </div>
+          <a className="text-link" href="#contact">Have a project in mind? <span>Let’s talk <ArrowIcon diagonal /></span></a>
+        </section>
+
+        <section className="marquee-band" aria-label="Ideas made real">
+          <div className="marquee-track" aria-hidden="true">
+            {Array.from({ length: 4 }, (_, index) => (
+              <span className="marquee-set" key={index}>IDEAS MADE REAL <span>✳</span> PRINTED WITH PURPOSE <span>✳</span> BUILT TO BE SEEN <span>✳</span></span>
+            ))}
+          </div>
+        </section>
+
+        <section className="services-section section-pad" id="services" aria-labelledby="services-title">
+          <div className="services-heading">
+            <p className="eyebrow"><span className="eyebrow-dot" /> What we bring to the table</p>
+            <h2 id="services-title">One good idea.<br /><span>Everywhere it needs to be.</span></h2>
+            <p>From the first spark to the final delivery, we make brands look and feel like themselves — only louder.</p>
+          </div>
+          <div className="service-list">
+            {services.map((service) => (
+              <a className="service-item" href="#contact" key={service.number}>
+                <span className="service-number">{service.number}</span>
+                <span className="service-icon" aria-hidden="true">{service.icon}</span>
+                <span className="service-copy"><strong>{service.title}</strong><span>{service.description}</span></span>
+                <span className="service-arrow"><ArrowIcon diagonal /></span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section className="manifesto" id="about" aria-labelledby="manifesto-title">
+          <div className="manifesto-art" aria-hidden="true">
+            <div className="manifesto-disc"><span>GOOD<br />STUFF<br />HAPPENS<br />HERE</span><i>✳</i></div>
+            <span className="manifesto-stamp">EST. WITH<br />BIG IDEAS</span>
+          </div>
+          <div className="manifesto-copy">
+            <p className="eyebrow"><span className="eyebrow-dot" /> Nice to meet you</p>
+            <h2 id="manifesto-title">We’re the<br />people behind<br /><span>the good stuff.</span></h2>
+            <p>We’re a curious crew of designers, makers and print people who believe the world needs more thoughtful things — made with care, made to last, and made to mean something.</p>
+            <a className="text-link" href="#contact"><span>More about Cavakuz <ArrowIcon diagonal /></span></a>
+          </div>
+        </section>
+
+        <section className="contact-section" id="contact" aria-labelledby="contact-title">
+          <div className="contact-orbit contact-orbit--one" aria-hidden="true" />
+          <div className="contact-orbit contact-orbit--two" aria-hidden="true" />
+          <p className="eyebrow"><span className="eyebrow-dot" /> Your next big thing starts here</p>
+          <h2 id="contact-title">Let’s make<br />some <span>noise.</span></h2>
+          <a className="contact-button" href="mailto:hello@cavakuz.com">Tell us what you’re thinking <ArrowIcon diagonal /></a>
+          <p className="contact-note">Big idea, tiny question, or just saying hi — our inbox is open.</p>
+        </section>
+      </main>
+
+      <footer className="site-footer">
+        <div className="footer-top"><BrandMark /><span>Good work. Good people. Good energy.</span><a href="#top">Back to top ↑</a></div>
+        <div className="footer-bottom"><span>© {new Date().getFullYear()} Cavakuz Studio. Made with intention.</span><span>Creative studio & print house · Working everywhere</span><a href="mailto:hello@cavakuz.com">hello@cavakuz.com</a></div>
+      </footer>
+    </div>
+  )
+}
+
+export default App
