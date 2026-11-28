@@ -5,6 +5,19 @@ import work1 from '/images/our-work/work1.webp'
 import work2 from '/images/our-work/work2.webp'
 import work3 from '/images/our-work/work3.webp'
 
+//services images
+import service5 from '/images/services/services5.jpeg'
+import service4 from '/images/services/services8.jpeg'
+import service1 from '/images/services/services11.jpeg'
+import service3 from '/images/services/services6.jpeg'
+import service2 from '/images/services/service9.jpeg'
+import service6 from '/images/services/services10.jpeg'
+
+
+
+
+
+
 const projects = [
   {
     number: '01',
@@ -38,7 +51,7 @@ const services = [
     title: 'Custom Apparel & Textile Branding',
     description: 'T-shirts, polos, caps, uniforms and event shirts, personalised or branded for your team.',
     icon: '◉',
-    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=700&q=80',
+    image: service1,
     imageAlt: 'A crisp white T-shirt ready for custom printing',
   },
   {
@@ -46,7 +59,7 @@ const services = [
     title: 'Engraving & Personalisation',
     description: 'Engraved gifts, customised merchandise and personal touches made to last.',
     icon: '✧',
-    image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=700&q=80',
+    image: service2,
     imageAlt: 'A collection of carefully arranged design objects and gifts',
   },
   {
@@ -54,7 +67,7 @@ const services = [
     title: 'Commercial & Digital Printing',
     description: 'Flyers, posters, brochures, stickers, business cards, invitations and more.',
     icon: '▤',
-    image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=700&q=80',
+    image: service3,
     imageAlt: 'Printed notebooks and stationery arranged on a desk',
   },
   {
@@ -62,7 +75,7 @@ const services = [
     title: 'Packaging & Bag Branding',
     description: 'Custom paper, polythene and rubber bags, pouches, gift bags and packaging.',
     icon: '▱',
-    image: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=700&q=80',
+    image: service4,
     imageAlt: 'Colorful product packaging arranged for a brand display',
   },
   {
@@ -70,7 +83,7 @@ const services = [
     title: 'Corporate & Promotional Branding',
     description: 'Office, shop and vehicle branding, promotional materials and corporate merchandise.',
     icon: '↗',
-    image: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=700&q=80',
+    image: service5,
     imageAlt: 'Bright printed campaign graphics displayed together',
   },
   {
@@ -78,7 +91,7 @@ const services = [
     title: 'Custom Merchandise & Gifts',
     description: 'Branded mugs, notebooks, folders, corporate gifts and customised accessories.',
     icon: '✳',
-    image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=700&q=80',
+    image: service6,
     imageAlt: 'Gift boxes wrapped and ready to be personalised',
   },
 ]
