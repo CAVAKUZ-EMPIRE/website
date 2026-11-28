@@ -211,7 +211,7 @@ function App() {
           <span />
         </button>
         <nav className={menuOpen ? 'main-nav is-open' : 'main-nav'} aria-label="Main navigation">
-          <a href="#work" onClick={() => setMenuOpen(false)}>Our work</a>
+          <a href="#work" onClick={() => setMenuOpen(false)}>Projects</a>
           <a href="#services" onClick={() => setMenuOpen(false)}>What we do</a>
           <a href="#about" onClick={() => setMenuOpen(false)}>About us</a>
           <a href="#team" onClick={() => setMenuOpen(false)}>Our team</a>
@@ -255,8 +255,8 @@ function App() {
         <section className="work-section section-pad" id="work" aria-labelledby="work-title">
           <div className="section-heading">
             <div>
-              <p className="eyebrow"><span className="eyebrow-dot" /> A few ways we make ideas real</p>
-              <h2 id="work-title">Made to <span>make</span><br />an impression.</h2>
+              <p className="eyebrow"><span className="eyebrow-dot" /> A closer look at our work</p>
+              <h2 id="work-title">Selected<br /><span>projects.</span></h2>
             </div>
             <p className="section-intro">Thoughtful stationery, packaging that pops and graphics that get noticed — this is the kind of energy we bring to a brief.</p>
           </div>
@@ -264,7 +264,7 @@ function App() {
             className="project-carousel"
             role="region"
             aria-roledescription="carousel"
-            aria-label="Selected work"
+            aria-label="Featured projects"
             onMouseEnter={() => setCarouselHovered(true)}
             onMouseLeave={() => setCarouselHovered(false)}
             onFocusCapture={() => setCarouselFocused(true)}
