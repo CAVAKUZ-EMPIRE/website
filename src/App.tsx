@@ -45,13 +45,18 @@ const projects = [
   },
 ]
 
-const brandSectors = [
-  'Local businesses',
-  'Retail & goods',
-  'Hospitality',
-  'Events & culture',
-  'Corporate teams',
-  'Community projects',
+const brandClients = [
+  {
+    name: 'Nike',
+    logo: 'https://cdn.simpleicons.org/nike/202725',
+    logoAlt: 'Nike logo sample, not a client endorsement',
+    label: 'SAMPLE LOGO · NOT A CLIENT',
+  },
+  { name: 'Brand Name 02', logo: null, logoAlt: '', label: 'LOGO PLACEHOLDER' },
+  { name: 'Brand Name 03', logo: null, logoAlt: '', label: 'LOGO PLACEHOLDER' },
+  { name: 'Brand Name 04', logo: null, logoAlt: '', label: 'LOGO PLACEHOLDER' },
+  { name: 'Brand Name 05', logo: null, logoAlt: '', label: 'LOGO PLACEHOLDER' },
+  { name: 'Brand Name 06', logo: null, logoAlt: '', label: 'LOGO PLACEHOLDER' },
 ]
 
 const carouselInterval = 6500
@@ -348,30 +353,35 @@ function App() {
         </section>
 
         <section className="brand-showcase" aria-labelledby="brand-showcase-title">
-          <div className="brand-showcase-heading section-pad">
+          {/* <div className="brand-showcase-heading section-pad">
             <div>
-              <p className="eyebrow"><span className="eyebrow-dot" /> The brands we’re here for</p>
-              <h2 id="brand-showcase-title">Good company.<br /><span>Big ideas.</span></h2>
+            <p className="eyebrow"><span className="eyebrow-dot" /> Brands we’ve worked with</p>
+            <h2 id="brand-showcase-title">Good company.<br /><span>Big ideas.</span></h2>
             </div>
-            <p>From local businesses and retail to hospitality, events and growing teams, we make the things that help a brand show up in the real world.</p>
-          </div>
-          <div className="brand-showcase-rail" role="img" aria-label="Showcase of independent businesses, retail, hospitality, events and corporate teams">
+            <p>Temporary logo placeholders — the Nike mark is a sample, not a client endorsement. Replace these with approved client identities before launch.</p>
+            </div> */}
+            {/* brand showcase section is commented out for now, can be uncommented when needed */}
+          {/* <div className="brand-showcase-rail" role="img" aria-label="Temporary brand logo placeholders, including a sample Nike logo that is not a client endorsement">
             <div className="brand-showcase-track" aria-hidden="true">
               {Array.from({ length: 2 }, (_, setIndex) => (
                 <div className="brand-showcase-set" key={setIndex}>
-                  {brandSectors.map((sector, index) => (
-                    <article className={`brand-sector-card brand-sector-card--${index + 1}`} key={sector}>
-                      <span className="brand-sector-index">{String(index + 1).padStart(2, '0')} — MADE TO STAND OUT</span>
-                      <span className="brand-sector-name">{sector}</span>
-                      <span className="brand-sector-symbol">✳</span>
+                  {brandClients.map((client, index) => (
+                    <article className={`brand-client-card brand-client-card--${index + 1}`} key={client.name}>
+                      {client.logo ? (
+                        <img className="brand-client-logo" src={client.logo} alt={client.logoAlt} loading="lazy" />
+                      ) : (
+                        <span className="brand-client-mark" aria-hidden="true">✳</span>
+                      )}
+                      <span className="brand-client-name">{client.name}</span>
+                      <span className="brand-client-label">{client.label}</span>
                     </article>
                   ))}
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
           <div className="brand-showcase-footer section-pad">
-            <span>YOUR BRAND COULD BE NEXT</span>
+            <span>PLACEHOLDERS — UPDATE BEFORE LAUNCH</span>
             <a href="#contact">Let’s make your mark <ArrowIcon diagonal /></a>
           </div>
         </section>
@@ -417,13 +427,19 @@ function App() {
         <section className="manifesto" id="about" aria-labelledby="manifesto-title">
           <div className="manifesto-art" aria-hidden="true">
             <div className="manifesto-disc"><span>GOOD<br />STUFF<br />HAPPENS<br />HERE</span><i>✳</i></div>
-            <span className="manifesto-stamp">EST. WITH<br />BIG IDEAS</span>
+            <span className="manifesto-stamp">OBUASI<br />GAUSU</span>
           </div>
           <div className="manifesto-copy">
-            <p className="eyebrow"><span className="eyebrow-dot" /> Nice to meet you</p>
-            <h2 id="manifesto-title">We’re the<br />people behind<br /><span>the good stuff.</span></h2>
-            <p>We’re a curious crew of designers, makers and print people who believe the world needs more thoughtful things — made with care, made to last, and made to mean something.</p>
-            <a className="text-link" href="#contact"><span>More about Cavakuz <ArrowIcon diagonal /></span></a>
+            <p className="eyebrow"><span className="eyebrow-dot" /> About Cavakuz Empire</p>
+            <h2 id="manifesto-title">Big ideas.<br /><span>Made tangible.</span></h2>
+            <p>Cavakuz Empire is a creative branding and printing company based in Obuasi, Gausu. We help businesses, teams and individuals bring their ideas to life through custom apparel, engraving, commercial print, packaging and branded merchandise.</p>
+            <p>From the first brief to the finished piece, we make thoughtful, practical work that helps your brand show up in the real world.</p>
+            <ul className="manifesto-highlights" aria-label="What makes Cavakuz different">
+              <li><span className="manifesto-highlight-index">01</span><span className="manifesto-highlight-copy"><strong>Made for real life</strong><span>Branding that moves beyond the screen.</span></span></li>
+              <li><span className="manifesto-highlight-index">02</span><span className="manifesto-highlight-copy"><strong>Thought through</strong><span>Print, apparel and packaging tailored to your idea.</span></span></li>
+              <li><span className="manifesto-highlight-index">03</span><span className="manifesto-highlight-copy"><strong>Proudly local</strong><span>Creative support rooted in Obuasi, Gausu.</span></span></li>
+            </ul>
+            <a className="text-link" href="#services"><span>See what we make <ArrowIcon diagonal /></span></a>
           </div>
         </section>
 
