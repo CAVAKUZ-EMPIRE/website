@@ -45,6 +45,17 @@ const projects = [
   },
 ]
 
+const brandSectors = [
+  'Local businesses',
+  'Retail & goods',
+  'Hospitality',
+  'Events & culture',
+  'Corporate teams',
+  'Community projects',
+]
+
+const carouselInterval = 6500
+
 const services = [
   {
     number: '01',
@@ -124,6 +135,11 @@ function BrandMark() {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0)
+  const [carouselPaused, setCarouselPaused] = useState(false)
+  const [carouselHovered, setCarouselHovered] = useState(false)
+  const [carouselFocused, setCarouselFocused] = useState(false)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
   const serviceListRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -149,6 +165,27 @@ function App() {
     items.forEach((item) => observer.observe(item))
     return () => observer.disconnect()
   }, [])
+
+  useEffect(() => {
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const updateMotionPreference = () => setPrefersReducedMotion(motionPreference.matches)
+
+    updateMotionPreference()
+    motionPreference.addEventListener('change', updateMotionPreference)
+    return () => motionPreference.removeEventListener('change', updateMotionPreference)
+  }, [])
+
+  useEffect(() => {
+    if (prefersReducedMotion || carouselPaused || carouselHovered || carouselFocused) return
+
+    const intervalId = window.setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        setActiveProjectIndex((currentIndex) => (currentIndex + 1) % projects.length)
+      }
+    }, carouselInterval)
+
+    return () => window.clearInterval(intervalId)
+  }, [activeProjectIndex, carouselFocused, carouselHovered, carouselPaused, prefersReducedMotion])
 
   return (
     <div
@@ -223,19 +260,120 @@ function App() {
             </div>
             <p className="section-intro">Thoughtful stationery, packaging that pops and graphics that get noticed — this is the kind of energy we bring to a brief.</p>
           </div>
-          <div className="project-grid">
-            {projects.map((project) => (
-              <a className={`project-card ${project.className}`} href="#contact" key={project.number}>
-                <div className="project-image-wrap">
-                  <img src={project.image} alt={project.alt} loading="lazy" />
-                  <span className="project-number">{project.number} / 03</span>
-                  <span className="project-arrow"><ArrowIcon diagonal /></span>
-                </div>
-                <div className="project-meta"><span>{project.category}</span><span>{project.name}</span></div>
-              </a>
-            ))}
+          <div
+            className="project-carousel"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Selected work"
+            onMouseEnter={() => setCarouselHovered(true)}
+            onMouseLeave={() => setCarouselHovered(false)}
+            onFocusCapture={() => setCarouselFocused(true)}
+            onBlurCapture={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                setCarouselFocused(false)
+              }
+            }}
+          >
+            <div
+              className="project-carousel-stage"
+              aria-live={carouselPaused || carouselHovered || carouselFocused || prefersReducedMotion ? 'polite' : 'off'}
+            >
+              {projects.map((project, index) => index === activeProjectIndex && (
+                <a
+                  className={`project-card ${project.className}`}
+                  href="#contact"
+                  key={project.number}
+                  aria-label={`Project ${index + 1} of ${projects.length}: ${project.name}. Contact us about your project.`}
+                >
+                  <div className="project-image-wrap">
+                    <img src={project.image} alt={project.alt} />
+                    <span className="project-number">{project.number} / 03</span>
+                    <span className="project-arrow"><ArrowIcon diagonal /></span>
+                  </div>
+                  <div className="project-meta">
+                    <span className="project-meta-index">SELECTED WORK — {project.number} / 03</span>
+                    <span className="project-meta-category">{project.category}</span>
+                    <h3 className="project-meta-title">{project.name}</h3>
+                    <span className="project-meta-link">Let’s make something <ArrowIcon diagonal /></span>
+                  </div>
+                </a>
+              ))}
+            </div>
+            <div className="project-carousel-controls">
+              <div className="project-carousel-pagination" role="group" aria-label="Choose a featured project">
+                {projects.map((project, index) => (
+                  <button
+                    className={`project-carousel-dot${index === activeProjectIndex ? ' is-active' : ''}`}
+                    type="button"
+                    key={project.number}
+                    aria-label={`Show project ${index + 1}: ${project.name}`}
+                    aria-current={index === activeProjectIndex ? 'true' : undefined}
+                    onClick={() => setActiveProjectIndex(index)}
+                  />
+                ))}
+                <span className="project-carousel-count" aria-hidden="true">
+                  <strong>{String(activeProjectIndex + 1).padStart(2, '0')}</strong> / {String(projects.length).padStart(2, '0')}
+                </span>
+              </div>
+              <div className="project-carousel-actions">
+                <button
+                  className="project-carousel-toggle"
+                  type="button"
+                  aria-label={carouselPaused ? 'Resume automatic slideshow' : 'Pause automatic slideshow'}
+                  onClick={() => setCarouselPaused((paused) => !paused)}
+                >
+                  <span aria-hidden="true">{carouselPaused ? '▶' : 'Ⅱ'}</span>
+                  {carouselPaused ? 'Play' : 'Pause'}
+                </button>
+                <button
+                  className="project-carousel-arrow project-carousel-previous"
+                  type="button"
+                  aria-label="Previous project"
+                  onClick={() => setActiveProjectIndex((currentIndex) => (currentIndex - 1 + projects.length) % projects.length)}
+                >
+                  <ArrowIcon />
+                </button>
+                <button
+                  className="project-carousel-arrow"
+                  type="button"
+                  aria-label="Next project"
+                  onClick={() => setActiveProjectIndex((currentIndex) => (currentIndex + 1) % projects.length)}
+                >
+                  <ArrowIcon />
+                </button>
+              </div>
+            </div>
           </div>
           <a className="text-link" href="#contact">Have a project in mind? <span>Let’s talk <ArrowIcon diagonal /></span></a>
+        </section>
+
+        <section className="brand-showcase" aria-labelledby="brand-showcase-title">
+          <div className="brand-showcase-heading section-pad">
+            <div>
+              <p className="eyebrow"><span className="eyebrow-dot" /> The brands we’re here for</p>
+              <h2 id="brand-showcase-title">Good company.<br /><span>Big ideas.</span></h2>
+            </div>
+            <p>From local businesses and retail to hospitality, events and growing teams, we make the things that help a brand show up in the real world.</p>
+          </div>
+          <div className="brand-showcase-rail" role="img" aria-label="Showcase of independent businesses, retail, hospitality, events and corporate teams">
+            <div className="brand-showcase-track" aria-hidden="true">
+              {Array.from({ length: 2 }, (_, setIndex) => (
+                <div className="brand-showcase-set" key={setIndex}>
+                  {brandSectors.map((sector, index) => (
+                    <article className={`brand-sector-card brand-sector-card--${index + 1}`} key={sector}>
+                      <span className="brand-sector-index">{String(index + 1).padStart(2, '0')} — MADE TO STAND OUT</span>
+                      <span className="brand-sector-name">{sector}</span>
+                      <span className="brand-sector-symbol">✳</span>
+                    </article>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="brand-showcase-footer section-pad">
+            <span>YOUR BRAND COULD BE NEXT</span>
+            <a href="#contact">Let’s make your mark <ArrowIcon diagonal /></a>
+          </div>
         </section>
 
         <section className="marquee-band" aria-label="Ideas made real">
