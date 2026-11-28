@@ -45,19 +45,19 @@ const projects = [
   },
 ]
 
-const brandClients = [
-  {
-    name: 'Nike',
-    logo: 'https://cdn.simpleicons.org/nike/202725',
-    logoAlt: 'Nike logo sample, not a client endorsement',
-    label: 'SAMPLE LOGO · NOT A CLIENT',
-  },
-  { name: 'Brand Name 02', logo: null, logoAlt: '', label: 'LOGO PLACEHOLDER' },
-  { name: 'Brand Name 03', logo: null, logoAlt: '', label: 'LOGO PLACEHOLDER' },
-  { name: 'Brand Name 04', logo: null, logoAlt: '', label: 'LOGO PLACEHOLDER' },
-  { name: 'Brand Name 05', logo: null, logoAlt: '', label: 'LOGO PLACEHOLDER' },
-  { name: 'Brand Name 06', logo: null, logoAlt: '', label: 'LOGO PLACEHOLDER' },
-]
+// const brandClients = [
+//   {
+//     name: 'Nike',
+//     logo: 'https://cdn.simpleicons.org/nike/202725',
+//     logoAlt: 'Nike logo sample, not a client endorsement',
+//     label: 'SAMPLE LOGO · NOT A CLIENT',
+//   },
+//   { name: 'Brand Name 02', logo: null, logoAlt: '', label: 'LOGO PLACEHOLDER' },
+//   { name: 'Brand Name 03', logo: null, logoAlt: '', label: 'LOGO PLACEHOLDER' },
+//   { name: 'Brand Name 04', logo: null, logoAlt: '', label: 'LOGO PLACEHOLDER' },
+//   { name: 'Brand Name 05', logo: null, logoAlt: '', label: 'LOGO PLACEHOLDER' },
+//   { name: 'Brand Name 06', logo: null, logoAlt: '', label: 'LOGO PLACEHOLDER' },
+// ]
 
 const carouselInterval = 6500
 
